@@ -10,13 +10,97 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Animation utilities */
+  --animate-slide-down:       slideDown 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  --animate-blob:             blobMorph 11s ease-in-out infinite;
+  --animate-blob-alt:         blobMorph 14s ease-in-out 4s infinite;
+  --animate-float:            floatY 5s ease-in-out infinite;
+  --animate-float-slow:       floatY 7s ease-in-out 1s infinite;
+  --animate-paw-a:            pawDance 3.5s ease-in-out infinite;
+  --animate-paw-b:            pawDance 3.5s ease-in-out 1.4s infinite;
+  --animate-paw-c:            pawDance 3.5s ease-in-out 2.8s infinite;
+  --animate-bone:             boneRock 4s ease-in-out infinite;
+  --animate-tag:              fadeSlideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+  --animate-h1-a:             fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.4s both;
+  --animate-h1-b:             fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.55s both;
+  --animate-body:             fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.7s both;
+  --animate-cta:              fadeSlideUp 0.8s cubic-bezier(0.22,1,0.36,1) 0.9s both;
+  --animate-image:            revealRight 1s cubic-bezier(0.22,1,0.36,1) 0.3s both;
+  --animate-yellow-blob:      blobMorph 9s ease-in-out 1s infinite;
+  --animate-spark-a:          spark 5s ease-in-out infinite;
+  --animate-spark-b:          spark 5s ease-in-out 1.6s infinite;
+  --animate-spark-c:          spark 5s ease-in-out 3.2s infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Keyframes ────────────────────────────────────────────── */
+
+@keyframes slideDown {
+  from { transform: translateY(-70px); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+
+@keyframes blobMorph {
+  0%,100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25%     { border-radius: 30% 70% 70% 30% / 30% 40% 60% 70%; }
+  50%     { border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%; }
+  75%     { border-radius: 70% 30% 50% 50% / 60% 40% 60% 40%; }
+}
+
+@keyframes floatY {
+  0%,100% { transform: translateY(0)    rotate(0deg); }
+  40%     { transform: translateY(-20px) rotate(2deg); }
+  70%     { transform: translateY(-9px)  rotate(-1deg); }
+}
+
+@keyframes pawDance {
+  0%,100% { transform: scale(1)    rotate(-12deg); opacity: 0.45; }
+  50%     { transform: scale(1.28) rotate(7deg);   opacity: 0.85; }
+}
+
+@keyframes boneRock {
+  0%,100% { transform: rotate(-14deg) translateX(0); }
+  30%     { transform: rotate(-4deg)  translateX(7px); }
+  70%     { transform: rotate(5deg)   translateX(-7px); }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(38px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealRight {
+  from { opacity: 0; transform: translateX(55px) scale(0.93); }
+  to   { opacity: 1; transform: translateX(0)    scale(1); }
+}
+
+@keyframes spark {
+  0%,100% { transform: translateY(0)    translateX(0)   scale(1);    opacity: 0.3; }
+  40%     { transform: translateY(-28px) translateX(10px) scale(1.2); opacity: 0.75; }
+  70%     { transform: translateY(-14px) translateX(-8px) scale(0.85); opacity: 0.5; }
+}
+
+/* ─── Shimmer button ───────────────────────────────────────── */
+
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -65%;
+  width: 45%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent);
+  transform: skewX(-18deg);
+}
+.btn-shimmer:hover::after {
+  animation: shimmerPass 0.65s ease-out forwards;
+}
+@keyframes shimmerPass {
+  from { left: -65%; }
+  to   { left: 130%; }
 }
 
 body {
